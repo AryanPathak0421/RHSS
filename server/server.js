@@ -17,7 +17,12 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+// CORS allows requests from FRONTEND_URL or all origins by default
+const frontendUrl = process.env.FRONTEND_URL;
+app.use(cors({
+  origin: frontendUrl ? (frontendUrl.includes(',') ? frontendUrl.split(',').map(u => u.trim()) : frontendUrl) : '*',
+  credentials: true
+}));
 app.use(express.json());
 
 // Connect DB
