@@ -17,6 +17,9 @@ try {
 const connectDB = async () => {
   try {
     const uri = process.env.MONGODB_URI;
+    if (!uri) {
+      throw new Error('MONGODB_URI is not defined in environment variables! Please set MONGODB_URI in your cloud deployment settings.');
+    }
     console.log(`Connecting to MongoDB Atlas...`);
     const conn = await mongoose.connect(uri, {
       serverSelectionTimeoutMS: 15000,

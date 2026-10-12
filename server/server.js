@@ -23,6 +23,15 @@ app.use(express.json());
 // Connect DB
 connectDB();
 
+// Root Endpoint
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'RHSS Backend Server is running',
+    health: '/api/health'
+  });
+});
+
 // 1. Health Check Endpoint
 app.get('/api/health', (req, res) => {
   res.json({

@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "node server/server.js",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "node server/server.js",
     "build:frontend": "npm --prefix frontend run build",
