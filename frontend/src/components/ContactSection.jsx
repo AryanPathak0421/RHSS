@@ -6,6 +6,7 @@ import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './ui/SectionHeader';
 import Reveal from './ui/Reveal';
 import { EASE_OUT } from '../lib/motion';
+import { API_URL } from '../config/api';
 
 const inputCls = "w-full p-3 rounded-xl bg-slate-900/80 border border-white/10 text-white placeholder:text-slate-500 outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition";
 
@@ -23,7 +24,7 @@ export default function ContactSection() {
     e.preventDefault();
     setSending(true);
     try {
-      await fetch('http://localhost:5000/api/contact', {
+      await fetch(`${API_URL}/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(msgData)

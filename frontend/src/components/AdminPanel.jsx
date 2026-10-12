@@ -5,6 +5,7 @@ import {
   AlertCircle, RefreshCw, Eye, Sparkles, X, ChevronRight, Activity 
 } from 'lucide-react';
 import Modal from './ui/Modal';
+import { API_URL } from '../config/api';
 
 export default function AdminPanel({ isOpen, onClose }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,8 +26,6 @@ export default function AdminPanel({ isOpen, onClose }) {
   const [newNews, setNewNews] = useState({ title: '', category: 'समाचार', summary: '', image: '' });
   const [newEvent, setNewEvent] = useState({ title: '', date: '', time: '', venue: '', speaker: '', desc: '' });
   const [newShakha, setNewShakha] = useState({ name: '', state: 'उत्तर प्रदेश', district: '', area: '', timing: 'प्रातः 06:00 से 07:00', place: '', officer: '', phone: '' });
-
-  const API_URL = 'http://localhost:5000/api';
 
   useEffect(() => {
     const savedToken = localStorage.getItem('rhss_admin_token');

@@ -7,6 +7,7 @@ import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './ui/SectionHeader';
 import Reveal from './ui/Reveal';
 import { EASE_OUT } from '../lib/motion';
+import { API_URL } from '../config/api';
 
 const inputCls = "w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-white outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition";
 const labelCls = "block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5";
@@ -56,7 +57,7 @@ export default function JoinUsSection() {
     setSubmitting(true);
     const fallbackId = `RHSS-${Math.floor(100000 + Math.random() * 900000)}`;
     try {
-      const response = await fetch('http://localhost:5000/api/volunteers', {
+      const response = await fetch(`${API_URL}/volunteers`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
