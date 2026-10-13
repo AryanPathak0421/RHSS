@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { ChevronUp, Sparkles, MapPin, Phone, ShieldCheck, Info } from 'lucide-react';
+import { ChevronUp, Sparkles, MapPin, Phone, ShieldCheck, Info, Heart } from 'lucide-react';
 import { ORG_DETAILS, NAVIGATION_LINKS } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
 import { useSmoothScroll } from '../lib/SmoothScroll';
 import Reveal from './ui/Reveal';
 import Modal from './ui/Modal';
 
-export default function Footer({ onNavigate }) {
+export default function Footer({ onNavigate, onOpenDonation }) {
   const { t, lang } = useLanguage();
   const footerTrans = t.footer || {};
   const en = lang === 'en';
@@ -74,6 +74,15 @@ export default function Footer({ onNavigate }) {
             <div className="p-4 rounded-xl bg-white/[0.04] border border-amber-500/20 text-xs text-amber-200/90 font-serif italic">
               “{t.tagline || ORG_DETAILS.tagline}”
             </div>
+            <div className="pt-1">
+              <button
+                onClick={onOpenDonation}
+                className="btn-sheen inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold text-xs shadow-lg shadow-orange-600/30 hover:shadow-orange-500/40 transition-all hover:-translate-y-0.5"
+              >
+                <Heart className="w-4 h-4 fill-white/20" />
+                <span>{t.donateBtn || "समर्पण निधि / सहयोग करें"}</span>
+              </button>
+            </div>
           </Reveal.Item>
 
           {/* Quick links */}
@@ -90,6 +99,12 @@ export default function Footer({ onNavigate }) {
                   </button>
                 </li>
               ))}
+              <li>
+                <button onClick={onOpenDonation} className="group text-amber-300 font-bold hover:text-amber-200 transition flex items-center gap-1.5">
+                  <span className="text-orange-500 group-hover:translate-x-1 transition">›</span>
+                  <span>{en ? "Donation & QR Code" : "समर्पण निधि (बैंक / QR)"}</span>
+                </button>
+              </li>
             </ul>
           </Reveal.Item>
 

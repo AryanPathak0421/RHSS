@@ -3,14 +3,14 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { motion } from 'framer-motion';
-import { UserPlus, MapPin, Compass, ShieldCheck, ChevronRight, Sparkles, ChevronDown } from 'lucide-react';
+import { UserPlus, MapPin, Compass, ShieldCheck, ChevronRight, Sparkles, ChevronDown, Heart } from 'lucide-react';
 import { ORG_DETAILS } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
 import CountUp from './ui/CountUp';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export default function HeroSection({ onNavigate }) {
+export default function HeroSection({ onNavigate, onOpenDonation }) {
   const { t } = useLanguage();
   const hero = t.hero || {};
   const root = useRef(null);
@@ -147,6 +147,16 @@ export default function HeroSection({ onNavigate }) {
             <UserPlus className="w-5 h-5 group-hover:scale-110 transition" />
             <span>{hero.btnJoin || "हमसे जुड़ें (ऑनलाइन पंजीकरण)"}</span>
             <ChevronRight className="w-4 h-4 opacity-80 group-hover:translate-x-1 transition" />
+          </motion.button>
+
+          <motion.button
+            whileHover={{ y: -3 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={onOpenDonation}
+            className="px-6 py-4 rounded-xl bg-orange-500/20 hover:bg-orange-500/30 text-amber-200 border border-amber-400/50 hover:border-amber-300 font-bold text-base shadow-lg backdrop-blur-md transition-all flex items-center gap-2.5"
+          >
+            <Heart className="w-5 h-5 text-orange-400 fill-orange-400/20" />
+            <span>{t.donateBtn || "सहयोग / समर्पण निधि"}</span>
           </motion.button>
 
           <motion.button

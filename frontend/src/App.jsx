@@ -12,6 +12,7 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import SearchModal from './components/SearchModal';
 import AdminPanel from './components/AdminPanel';
+import DonationModal from './components/DonationModal';
 import ScrollProgress from './components/ui/ScrollProgress';
 import { NAVIGATION_LINKS } from './data/contentData';
 import { useSmoothScroll } from './lib/SmoothScroll';
@@ -27,6 +28,7 @@ export default function App() {
   });
   const [searchOpen, setSearchOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [donationOpen, setDonationOpen] = useState(false);
   const { scrollTo } = useSmoothScroll();
 
   const sectionIds = useMemo(() => NAVIGATION_LINKS.map((l) => l.id), []);
@@ -66,10 +68,11 @@ export default function App() {
         onNavigate={handleNavigate}
         onOpenSearch={() => setSearchOpen(true)}
         onOpenAdmin={() => setAdminOpen(true)}
+        onOpenDonation={() => setDonationOpen(true)}
       />
 
       <main>
-        <HeroSection onNavigate={handleNavigate} />
+        <HeroSection onNavigate={handleNavigate} onOpenDonation={() => setDonationOpen(true)} />
         <AboutSection />
         <VisionSection />
         <WorkSection onJoinWork={() => handleNavigate('join')} />
@@ -80,12 +83,17 @@ export default function App() {
         <ContactSection />
       </main>
 
-      <Footer onNavigate={handleNavigate} />
+      <Footer onNavigate={handleNavigate} onOpenDonation={() => setDonationOpen(true)} />
 
       <SearchModal
         isOpen={searchOpen}
         onClose={() => setSearchOpen(false)}
         onSelectSection={handleNavigate}
+      />
+
+      <DonationModal
+        isOpen={donationOpen}
+        onClose={() => setDonationOpen(false)}
       />
 
       <AdminPanel

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import {
   Menu, X, Search, Moon, Sun, ChevronRight,
-  Sparkles, Shield, UserPlus, Globe, Command
+  Sparkles, Shield, UserPlus, Globe, Command, Heart
 } from 'lucide-react';
 import { ORG_DETAILS, NAVIGATION_LINKS } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
@@ -14,7 +14,8 @@ export default function Header({
   setIsDarkMode,
   onNavigate,
   onOpenSearch,
-  onOpenAdmin
+  onOpenAdmin,
+  onOpenDonation
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -155,6 +156,13 @@ export default function Header({
                 <kbd className="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-[10px] font-mono text-slate-400">
                   <Command className="w-2.5 h-2.5" />K
                 </kbd>
+              </button>
+              <button
+                onClick={onOpenDonation}
+                className="group flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-orange-500/10 hover:bg-orange-500/20 dark:bg-orange-950/40 dark:hover:bg-orange-900/50 border border-orange-400/50 text-orange-700 dark:text-amber-300 text-xs font-bold shadow-sm transition-all hover:-translate-y-0.5 active:scale-95"
+              >
+                <Heart className="w-3.5 h-3.5 text-orange-600 fill-orange-500/30 group-hover:scale-110 transition-transform" />
+                <span>{t.donateBtn || "सहयोग करें"}</span>
               </button>
               <button
                 onClick={() => handleNavClick('join')}
@@ -311,7 +319,14 @@ export default function Header({
                 </motion.div>
               </div>
 
-              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-3">
+              <div className="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-2.5">
+                <button
+                  onClick={() => { setMobileMenuOpen(false); onOpenDonation?.(); }}
+                  className="w-full py-3 px-4 rounded-xl bg-orange-500/10 dark:bg-orange-950/40 border border-orange-400/50 text-orange-700 dark:text-amber-300 font-bold text-center flex items-center justify-center gap-2 transition"
+                >
+                  <Heart className="w-5 h-5 text-orange-600 fill-orange-500/30" />
+                  <span>{t.donateBtn || "समर्पण निधि / सहयोग करें"}</span>
+                </button>
                 <button
                   onClick={() => handleNavClick('join')}
                   className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold text-center shadow-lg shadow-orange-500/30 flex items-center justify-center gap-2"
