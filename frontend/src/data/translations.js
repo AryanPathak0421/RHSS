@@ -184,6 +184,25 @@ export const TRANSLATIONS = {
       copyright: "सर्वाधिकार सुरक्षित।",
       privacy: "गोपनीयता नीति",
       terms: "नियम एवं शर्तें"
+    },
+
+    // Donation / Samarpana Nidhi
+    donateBtn: "सहयोग करें",
+    donation: {
+      badge: "समर्पण निधि / आर्थिक सहयोग",
+      title: "संगठन सहयोग एवं समर्पण निधि",
+      desc: "राष्ट्र निर्माण, समाज सेवा, शाखा विस्तार एवं सनातन संस्कृति संरक्षण हेतु आर्थिक सहयोग प्रदान करें।",
+      accountName: "खाता धारक",
+      accountNo: "खाता संख्या (A/C No)",
+      ifsc: "आईएफएससी कोड (IFSC Code)",
+      bank: "बैंक का नाम",
+      scanPrompt: "QR Code Scan करें",
+      scanSub: "PhonePe, Google Pay, Paytm, BHIM आदि किसी भी UPI ऐप से स्कैन करें",
+      copySuccess: "कॉपी हो गया!",
+      copyBtn: "कॉपी करें",
+      downloadQr: "QR कोड डाउनलोड करें",
+      directTransfer: "बैंक खाते में सीधा ट्रांसफर",
+      verifiedBadge: "100% अधिकृत संगठन बैंक खाता"
     }
   },
 
@@ -372,6 +391,25 @@ export const TRANSLATIONS = {
       copyright: "All Rights Reserved.",
       privacy: "Privacy Policy",
       terms: "Terms & Conditions"
+    },
+
+    // Donation / Samarpana Nidhi
+    donateBtn: "Support / Donate",
+    donation: {
+      badge: "Samarpana Nidhi / Contribution",
+      title: "Organization Support & Donation",
+      desc: "Contribute voluntarily towards social service initiatives, shakha expansion, and cultural preservation.",
+      accountName: "Account Holder",
+      accountNo: "Account Number (A/C No)",
+      ifsc: "IFSC Code",
+      bank: "Bank Name",
+      scanPrompt: "Scan QR Code",
+      scanSub: "Scan using any UPI App (PhonePe, Google Pay, Paytm, BHIM, etc.)",
+      copySuccess: "Copied!",
+      copyBtn: "Copy",
+      downloadQr: "Download QR Code",
+      directTransfer: "Direct Bank Transfer",
+      verifiedBadge: "100% Verified Official Account"
     }
   }
 };

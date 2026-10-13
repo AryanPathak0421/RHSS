@@ -25,6 +25,21 @@ export const ORG_DETAILS = {
   headerSubtitle: "सामाजिक एवं सांस्कृतिक संगठन",
 };
 
+export const DONATION_DETAILS = {
+  accountName: "RASHTRIYA HINDU SWAYAM SEVAK SANGH",
+  accountNumber: "1267104000142311",
+  ifscCode: "IBKL0001267",
+  bankName: "IDBI Bank",
+  qrImage: "/donation_qr.png",
+  scanPrompt: "QR code scan Karen",
+  title: "संगठन सहयोग एवं समर्पण निधि",
+  englishTitle: "Organization Support & Donation (Samarpana Nidhi)",
+  tagline: "राष्ट्र एवं समाज के लिए आपका आर्थिक योगदान अमूल्य है",
+  englishTagline: "Your financial contribution towards the nation and society is invaluable",
+  desc: "राष्ट्रीय हिन्दू स्वयंसेवक संघ के सेवा प्रकल्पों, शाखा विस्तार, गौसेवा, निःशुल्क शिक्षा एवं आपदा राहत कार्यों हेतु अपनी स्वेच्छा से आर्थिक सहयोग प्रदान करें।",
+  englishDesc: "Contribute voluntarily towards social service initiatives, shakha expansion, cow protection, free education, and disaster relief operations of Rashtriya Hindu Swayamsevak Sangh."
+};
+
 export const NATIONAL_LEADERS = [
   {
     id: "president",
