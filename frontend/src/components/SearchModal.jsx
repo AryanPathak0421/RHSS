@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, X, ChevronRight, Briefcase, MapPin, Newspaper, CornerDownLeft } from 'lucide-react';
+import { Search, X, ChevronRight, Briefcase, MapPin, Newspaper, CornerDownLeft, Heart } from 'lucide-react';
 import { WORK_CATEGORIES, SHAKHA_LOCATIONS, LATEST_NEWS } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
 import Modal from './ui/Modal';
@@ -13,8 +13,19 @@ export default function SearchModal({ isOpen, onClose, onSelectSection }) {
   const q = query.trim().toLowerCase();
   const groups = useMemo(() => {
     if (!q) return [];
-    const has = (...vals) => vals.some((v) => String(v || '').toLowerCase().includes(q));
+    const donationMatches = ['दान', 'सहयोग', 'समर्पण', 'qr', 'bank', 'खाता', 'donate', 'donation', 'account', 'ifsc', 'ibkl'].some(k => q.includes(k));
     return [
+      ...(donationMatches ? [{
+        id: 'join',
+        icon: Heart,
+        color: 'text-orange-500',
+        label: en ? 'Support & Donation' : 'समर्पण निधि एवं सहयोग',
+        items: [{
+          key: 'donation',
+          title: en ? 'RHSS Support & Donation (Bank & QR)' : 'संगठन सहयोग एवं समर्पण निधि (Bank & QR Code)',
+          sub: 'A/C: 1267104000142311 • IFSC: IBKL0001267 • IDBI Bank'
+        }]
+      }] : []),
       { id: 'work', icon: Briefcase, color: 'text-orange-600', label: en ? 'Our Work' : 'हमारे कार्यप्रकल्प',
         items: WORK_CATEGORIES.filter((w) => has(w.title, w.shortDesc)).map((w) => ({ key: w.id, title: w.title, sub: w.shortDesc })) },
       { id: 'shakha', icon: MapPin, color: 'text-amber-600', label: en ? 'Shakhas' : 'शाखाएँ व इकाइयाँ',

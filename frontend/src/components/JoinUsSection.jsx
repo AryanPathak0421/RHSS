@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UserPlus, ShieldCheck, CheckCircle2, Sparkles, Printer, Loader2 } from 'lucide-react';
+import { UserPlus, ShieldCheck, CheckCircle2, Sparkles, Printer, Loader2, Heart, Copy, Check, Download, QrCode, Building2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { VOLUNTEER_RULES, ORG_DETAILS } from '../data/contentData';
+import { VOLUNTEER_RULES, ORG_DETAILS, DONATION_DETAILS } from '../data/contentData';
 import { useLanguage } from '../context/LanguageContext';
 import SectionHeader from './ui/SectionHeader';
 import Reveal from './ui/Reveal';
@@ -26,6 +26,21 @@ export default function JoinUsSection() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [volunteerId, setVolunteerId] = useState('');
+  const [copiedField, setCopiedField] = useState(null);
+  const dTrans = t.donation || {};
+
+  const handleCopyField = (text, field) => {
+    navigator.clipboard?.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2200);
+  };
+
+  const handleCopyAll = () => {
+    const details = `RASHTRIYA HINDU SWAYAM SEVAK SANGH\nA/C NO: ${DONATION_DETAILS.accountNumber}\nIFSC CODE: ${DONATION_DETAILS.ifscCode}\nBANK: ${DONATION_DETAILS.bankName}`;
+    navigator.clipboard?.writeText(details);
+    setCopiedField('join_all');
+    setTimeout(() => setCopiedField(null), 2200);
+  };
 
   const interestOptions = [
     'समाज सेवा', 'शिक्षा', 'स्वास्थ्य सेवा', 'गौसेवा',
@@ -327,6 +342,179 @@ export default function JoinUsSection() {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* Dedicated Support / Donation (समर्पण निधि) Card */}
+        <Reveal variant="fadeIn" className="pt-6">
+          <div id="samarpana-nidhi" className="rounded-3xl bg-gradient-to-br from-amber-50 via-white to-orange-50/70 dark:from-slate-900 dark:via-slate-900 dark:to-orange-950/40 border border-amber-300/80 dark:border-amber-500/30 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 dark:bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 space-y-8">
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-amber-200/60 dark:border-white/10 pb-6">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-950/70 text-orange-700 dark:text-orange-300 font-bold text-xs uppercase tracking-wider mb-2">
+                    <Heart className="w-4 h-4 fill-orange-500/20 text-orange-600" />
+                    <span>{dTrans.badge || "समर्पण निधि · आर्थिक सहयोग"}</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black font-heading text-slate-900 dark:text-white">
+                    {dTrans.title || DONATION_DETAILS.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
+                    {en ? DONATION_DETAILS.englishDesc : DONATION_DETAILS.desc}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 font-bold text-xs">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>{dTrans.verifiedBadge || "100% अधिकृत संगठन बैंक खाता"}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Grid: QR Code + Bank Details */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                {/* QR Code Column */}
+                <div className="lg:col-span-5 flex flex-col items-center text-center p-6 rounded-2xl bg-white dark:bg-slate-950 border border-amber-200/70 dark:border-white/10 shadow-lg">
+                  <div className="relative group max-w-[260px] w-full rounded-2xl overflow-hidden p-2 bg-gradient-to-br from-orange-500 via-amber-500 to-orange-600 shadow-xl shadow-orange-600/20">
+                    <img
+                      src={DONATION_DETAILS.qrImage}
+                      alt="RHSS Donation QR Code"
+                      className="w-full h-auto object-contain rounded-xl bg-white shadow-inner"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-2xl backdrop-blur-[2px]">
+                      <a
+                        href={DONATION_DETAILS.qrImage}
+                        download="RHSS_Donation_QR.png"
+                        className="px-4 py-2 rounded-xl bg-white text-orange-700 font-bold text-xs shadow-lg flex items-center gap-2 hover:scale-105 transition transform"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span>{en ? "Save QR Code" : "QR कोड डाउनलोड करें"}</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-1.5">
+                    <div className="flex items-center justify-center gap-1.5 text-orange-600 dark:text-orange-400 font-black text-sm">
+                      <QrCode className="w-4 h-4" />
+                      <span>{DONATION_DETAILS.scanPrompt || "QR code scan Karen"}</span>
+                    </div>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs">
+                      {dTrans.scanSub || "PhonePe, Google Pay, Paytm, BHIM आदि UPI ऐप द्वारा स्कैन करें"}
+                    </p>
+                    <a
+                      href={DONATION_DETAILS.qrImage}
+                      download="RHSS_Donation_QR.png"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-orange-600 hover:text-orange-700 dark:text-amber-400 pt-1 hover:underline"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>{dTrans.downloadQr || "QR कोड डाउनलोड करें"}</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Bank Details Column */}
+                <div className="lg:col-span-7 space-y-4">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <Building2 className="w-4 h-4 text-orange-500" />
+                    <span>{dTrans.directTransfer || "बैंक खाते में सीधा ट्रांसफर (NEFT / RTGS / IMPS)"}</span>
+                  </div>
+
+                  {/* Account Name */}
+                  <div className="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-amber-200/80 dark:border-white/10 shadow-sm flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                        {dTrans.accountName || "खाता धारक का नाम (Account Name)"}
+                      </span>
+                      <span className="font-mono font-black text-base sm:text-lg text-slate-900 dark:text-amber-100">
+                        {DONATION_DETAILS.accountName}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyField(DONATION_DETAILS.accountName, 'join_name')}
+                      className="p-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition shrink-0"
+                      title="Copy Account Name"
+                    >
+                      {copiedField === 'join_name' ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
+                    </button>
+                  </div>
+
+                  {/* Account Number */}
+                  <div className="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-amber-200/80 dark:border-white/10 shadow-sm flex items-center justify-between gap-4">
+                    <div>
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                        {dTrans.accountNo || "खाता संख्या (A/C NO)"}
+                      </span>
+                      <span className="font-mono font-black text-xl sm:text-2xl text-orange-600 dark:text-orange-400 tracking-wider">
+                        {DONATION_DETAILS.accountNumber}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyField(DONATION_DETAILS.accountNumber, 'join_acc')}
+                      className="px-3.5 py-1.5 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs transition flex items-center gap-1.5 shrink-0 shadow-md shadow-orange-600/20"
+                    >
+                      {copiedField === 'join_acc' ? (
+                        <>
+                          <Check className="w-4 h-4 text-white" />
+                          <span>{dTrans.copySuccess || "कॉपी!"}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          <span>{dTrans.copyBtn || "कॉपी करें"}</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* IFSC & Bank */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-amber-200/80 dark:border-white/10 shadow-sm flex items-center justify-between gap-3">
+                      <div>
+                        <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                          {dTrans.ifsc || "IFSC कोड"}
+                        </span>
+                        <span className="font-mono font-black text-base text-slate-900 dark:text-amber-100">
+                          {DONATION_DETAILS.ifscCode}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyField(DONATION_DETAILS.ifscCode, 'join_ifsc')}
+                        className="p-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition shrink-0"
+                        title="Copy IFSC"
+                      >
+                        {copiedField === 'join_ifsc' ? <Check className="w-5 h-5 text-emerald-500" /> : <Copy className="w-5 h-5" />}
+                      </button>
+                    </div>
+
+                    <div className="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-amber-200/80 dark:border-white/10 shadow-sm">
+                      <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
+                        {dTrans.bank || "बैंक का नाम"}
+                      </span>
+                      <span className="font-black text-base text-slate-900 dark:text-amber-100">
+                        {DONATION_DETAILS.bankName}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Copy All Details Button */}
+                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleCopyAll}
+                      className="py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-2 transition shadow-md"
+                    >
+                      {copiedField === 'join_all' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                      <span>{copiedField === 'join_all' ? (dTrans.copySuccess || "समस्त बैंक विवरण कॉपी हो गया!") : (en ? "Copy All Bank Details" : "समस्त बैंक विवरण कॉपी करें")}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
