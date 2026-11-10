@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node init && node server/server.js",
-    "dev:frontend": "node init && npm --prefix frontend run dev",
-    "dev:backend": "node init && node server/server.js",
+    "start": "node server/server.js",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "node server/server.js",
     "build:frontend": "node init && npm --prefix frontend run build",
     "seed": "node server/seed.js"
   },
